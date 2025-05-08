@@ -7,7 +7,7 @@ export default function AllProjects(){
     const {projects, setprojects} = useContext(projectContext);
 
     return(
-        <main className="h-full w-full flex gap-2 p-3 flex-wrap">
+        <main className="h-[100vh] w-full flex gap-2 pb-5 p-3 flex-wrap overflow-y-auto">
         {projects.map((project) => {
         return <div className="max-w-80 w-72 grow">
             <ProjectCard key={project.id} project={project} />

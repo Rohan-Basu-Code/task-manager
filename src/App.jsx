@@ -53,9 +53,11 @@ function App() {
     category: ['work', 'urgent'],
     tasks: [
       { id: 'task-009', title: 'Replace thermal paste', dueDate: '2025-05-09T17:00:00Z', status: 'in-progress', priority: 'high' },
+      { id: 'task-005', title: 'Character design', dueDate: '2025-05-15T20:00:00Z', status: 'done', priority: 'medium' },
+      { id: 'task-006', title: 'First panel draft', dueDate: '2025-05-08T23:00:00Z', status: 'todo', priority: 'high' },
     ],
   },
-  
+
   {
     id: 'proj-PlanAnniversary-006',
     name: 'Plan Anniversary',
