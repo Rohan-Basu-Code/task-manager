@@ -1,4 +1,4 @@
-export default function Emoji({type='personal'}){
+export default function Emoji({type}){
     switch(type){
         case 'hobby':
             return <span>☘️</span>;
@@ -8,6 +8,12 @@ export default function Emoji({type='personal'}){
             return <span>💼</span>;
         case `urgent`:
             return <span>🚨</span>;
+        case `high`:
+            return <span>🔴</span>;
+        case `medium`:
+            return <span>🟡</span>;
+        case `low`:
+            return <span>🟢</span>;
         default:
             return <span>📝</span>;
     }

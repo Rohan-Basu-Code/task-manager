@@ -70,7 +70,7 @@ export default function ProjectCard({project}){
                             <button 
                             disabled={task.status==='done'}
                             onClick={()=>changeValue(project.id,task.id,'priority')} className={`cursor-pointer`}>
-                                {task.priority==='high'?'🔴':task.priority==='medium'?'🟡':'🟢'}
+                                <Emoji type={task.priority}/>
                             </button>
                             
                             <p className={`${task.status === 'done'&&'line-through'}`}>{task.title}</p>
