@@ -99,16 +99,25 @@ function App() {
           <SideBar />
           <AllRoutes />
         </projectContext.Provider>
+
+
+
         <div 
         className={`fixed z-20 bg-black/50 top-0 left-0 right-0 bottom-0 backdrop-blur-[5px] transition-opacity duration-300
         ${showModal ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         >
           <div className={`duration-300 bg-white absolute bottom-5  top-5 right-5 rounded-lg px-5 py-3 shadow-xl 
           transform transition-transform ${showModal ? 'translate-x-0' : 'translate-x-full'}`}>
-            <div className='relative h-full'>
-            <button className='absolute -right-3 -top-1 cursor-pointer text-stone-500 text-3xl' onClick={()=>setshowModal(false)}><MdClose /></button>
-            <h2 className='text-3xl font-semibold mb-5'>New Project</h2>
-            <div className='my-2 flex gap-2'>
+            <button className='absolute right-1 top-1 cursor-pointer text-stone-500 text-3xl z-40' onClick={()=>setshowModal(false)}><MdClose /></button>
+
+            
+            <div className='h-full overflow-y-auto '>
+            
+            
+            <div className='flex flex-col gap-2 h-full'>
+              <h2 className='text-3xl font-semibold mb-5'>New Project</h2>
+              {/* type list */}
+            <div className=' flex gap-2'>
               {
               [`work`,`personal`,`hobby`].map(type=>
                 <>
@@ -127,19 +136,18 @@ function App() {
             }
 
             </div>
-            
-            <div className='bg-stone-300 rounded-lg p-1 mb-2'>
+            {/* Project Name */}
+            <div className='bg-stone-300 rounded-lg p-1'>
               <p className=' font-semibold px-2 pb-1'>Name:</p>
               <input className='outline-none w-full rounded-md p-2 bg-white' type="text" value={projectName} onChange={(e)=>setprojectName(e.target.value)} />
             </div>
-            <div className='bg-stone-300 rounded-lg p-1 pb-0 mb-2'>
+            {/* Project desc */}
+            <div className='bg-stone-300 rounded-lg p-1 pb-0'>
               <p className=' font-semibold px-2 pb-1'>Description:</p>
               <textarea  className='outline-none w-full rounded-md p-2 bg-white' value={projectDsc} onChange={(e)=>setprojectDsc(e.target.value)}/>
             </div>
-            
-            
-            
-            <div className='bg-stone-300 rounded-lg p-1 mb-2'>
+            {/* tasks */}
+            <div className='bg-stone-300 rounded-lg p-1'>
               <p className='text-lg font-semibold px-2 pb-1'>Tasks:</p>
               <div>
                 
@@ -193,7 +201,7 @@ function App() {
 
               {
                 projectTasks.length>0&&(
-                  <div className=' divide-y-1 divide-stone-400 bg-stone-200 rounded-md px-1'>
+                  <div className=' divide-y-1 divide-stone-400 bg-stone-200 rounded-md px-1 max-h-30 overflow-y-auto'>
                     {
                       projectTasks.map(task=>
                         <div className='flex gap-2 justify-between p-1'>
@@ -207,8 +215,21 @@ function App() {
               }
             
             </div>
+            {/* create button */}
+            <button 
+            className='self-end bg-teal-500 px-3 py-1 rounded-md mt-auto' 
+            onClick={()=>createProject()}>
+              Create Project 
+            </button>
+
+
+
+
+
+              
+            </div>
             
-            <button className='absolute bottom-2 right-0 bg-stone-300 px-3 py-1 rounded-md' onClick={()=>createProject()}>Create Project</button>
+
             </div>
         </div>
         </div>
