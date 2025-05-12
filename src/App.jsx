@@ -1,36 +1,14 @@
 import { BrowserRouter, data } from 'react-router-dom';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import AllRoutes from './AllRoutes'; 
 import SideBar from './components/Sidebar';
 import projectContext from './contexts/projectContext';
 import Emoji from './components/Emoji';
 import { MdClose } from "react-icons/md";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
-  const dp = [
-  {
-    "id": "proj-BuildPortfolioWebsite-001",
-    "name": "Build Portfolio Website",
-    "description": "Create a personal portfolio to showcase work.",
-    "category": ["work"],
-    "tasks": [
-      {
-        "id": "task-001",
-        "title": "Design layout",
-        "dueDate": 1746792000,
-        "status": "todo",
-        "priority": "high"
-      },
-      {
-        "id": "task-002",
-        "title": "Code homepage",
-        "dueDate": 1746885600,
-        "status": "in-progress",
-        "priority": "medium"
-      }
-    ]
-  },
-];
 
   const [projectName, setprojectName] = useState('');
   const [projectDsc, setprojectDsc] = useState('');
@@ -42,7 +20,14 @@ function App() {
   const [taskPriorty, settaskPriorty] = useState('low');
   const [projectTasks,setprojectTasks] = useState([]);
   
-  const [projects, setprojects] = useState(dp);
+  const [projects, setprojects] = useState(() => {
+  const savedProjects = localStorage.getItem("projects");
+  return JSON.parse(savedProjects);
+  });
+
+    useEffect(() => {
+      localStorage.setItem("projects", JSON.stringify(projects));
+    }, [projects]);
 
   const [showModal, setshowModal] = useState(false);
 
@@ -53,7 +38,7 @@ function App() {
     {const newTask = {
       id: `task_${Date.now()}`,
         title: taskTitle,
-        dueDate: new Date(taskDueDate).getTime() / 1000,
+        dueDate: new Date(taskDueDate).getTime(),
         status: "todo",
         priority: taskPriorty
       }
@@ -167,7 +152,24 @@ function App() {
                   </div>           
                   <div>
                     <span className='font-semibold mr-2'>Due:</span>
-                    <input className='border-b-2 border-stone-400' type="datetime-local" value={taskDueDate} onChange={(e)=>settaskDueDate(e.target.value)} name="" />
+                    {/* <input
+                      type="datetime-local"
+                      step="3600" // 3600 seconds = 1 hour
+                      value={taskDueDate}
+                      onChange={(e) => settaskDueDate(e.target.value)}
+                    /> */}
+                    <DatePicker
+                      selected={taskDueDate ? new Date(taskDueDate) : null}
+                      onChange={(date) => {
+                        // Round to nearest hour
+                        date.setMinutes(0, 0, 0);
+                        settaskDueDate(date.toISOString());
+                      }}
+                      showTimeSelect
+                      timeIntervals={60}
+                      dateFormat="Pp"
+                      placeholderText="Select date and hour"
+                    />
                   </div>
                 </div>
                 
@@ -214,19 +216,13 @@ function App() {
                 )
               }
             
-            </div>
-            {/* create button */}
-            <button 
-            className='self-end bg-teal-500 px-3 py-1 rounded-md mt-auto' 
-            onClick={()=>createProject()}>
-              Create Project 
-            </button>
-
-
-
-
-
-              
+              </div>
+              {/* create button */}
+              <button 
+              className='self-end bg-green-600 text-white px-3 py-1 rounded-md mt-auto' 
+              onClick={()=>createProject()}>
+                Create Project 
+              </button> 
             </div>
             
 

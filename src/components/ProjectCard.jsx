@@ -66,21 +66,41 @@ export default function ProjectCard({project}){
             <div className="max-h-30 overflow-y-auto divide-y-1 divide-[#0002]  flex flex-col ">
                 {project.tasks.filter((task) => task.status !== 'done').map((task)=>{
                     const date = new Date(task.dueDate);
-                    return <div className={`${task.status==='in-progress'&&'bg-green-500/20'} px-2 flex gap-2 text-xs py-2`}>
+                    const formatted = date.toLocaleString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        hour12: true
+                        });
+                    return <div className={`${task.status==='in-progress'&&'after:absolute after:top-0 after:bottom-0 after:w-1 after:right-0 after:bg-green-500'} relative p-2 py-1 pl-1 flex gap-2 text-xs  items-center`}>
                             <button 
+                            className={`shadow capitalize w-12 py-[1px] rounded-xs cursor-pointer ${
+                                task.priority==='high'?
+                                'bg-red-500  text-white'
+                                :task.priority==='medium'?
+                                'bg-yellow-500'
+                                :'bg-green-500'
+                            }`}
                             disabled={task.status==='done'}
-                            onClick={()=>changeValue(project.id,task.id,'priority')} className={`cursor-pointer`}>
-                                <Emoji type={task.priority}/>
+                            onClick={()=>changeValue(project.id,task.id,'priority')} >
+                                {/* <Emoji type={task.priority}/> */}
+                                {task.priority}
                             </button>
                             
-                            <p className={`${task.status === 'done'&&'line-through'}`}>{task.title}</p>
+                            <p className={`truncate w-32 ${task.status === 'done'&&'line-through'}`}>{task.title.length>25?task.title.slice(0,22):task.title}</p>
 
-                            <p>{date.toLocaleDateString()}</p>
+                            
+                            <div className="ml-auto flex gap-3 items-center">
+                                <p>{formatted}</p>
+                                <button 
+                                onClick={()=>changeValue(project.id,task.id,'status')}
+                                disabled={task.status==='done'} 
+                                className={`border border-gray-300 w-10 bg-gray-200 py-[1px] rounded-xs ${task.status === 'done' ? 'text-gray-300 cursor-not-allowed' : 'cursor-pointer'}`}>{task.status==='todo'?'Start':'Done'}
+                                </button>
 
-                            <button 
-                            onClick={()=>changeValue(project.id,task.id,'status')}
-                            disabled={task.status==='done'} 
-                            className={`ml-auto  ${task.status === 'done' ? 'text-gray-300 cursor-not-allowed' : 'cursor-pointer'}`}>{task.status==='todo'?'Start':'Done'}</button>
+                            </div>
+                            
                             </div>
                     
                 })}

@@ -9,7 +9,7 @@ export default function ProjectListContainer({type='all'}){
         <div className="h-[calc(100vh-60px)] overflow-x-auto flex flex-col gap-2 pb-5 p-3 flex-wrap">
             {type==='all'?(
                 projects.map((project) => {
-                    return <div className="w-90">
+                    return <div className="w-110 grow max-h-60">
                         <ProjectCard key={project.id} project={project} />
                     </div>;
                 })
