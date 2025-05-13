@@ -231,6 +231,7 @@ function App() {
         </div>
         
         <button className='absolute bottom-6 right-6' onClick={()=>setshowModal(true)}>Add Project</button>
+        <button className='absolute bottom-12 right-6' onClick={()=>setprojects([])}>reset</button>
         
       </div>
     </BrowserRouter>

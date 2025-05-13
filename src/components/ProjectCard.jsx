@@ -2,48 +2,18 @@ import { Link } from "react-router-dom"
 import projectContext from "../contexts/projectContext"
 import { useContext } from "react"
 import Emoji from "./Emoji";
-
+import ChangeValue from "./ChangeValue";
 export default function ProjectCard({project}){
 
     const {setprojects} = useContext(projectContext);
 
 
 
-    const changeValue = (projectId, taskId, type) => {
-    setprojects((prevProjects) =>
-        prevProjects.map((oproject) =>
-            oproject.id === projectId
-                ? {
-                    ...oproject,
-                    tasks: oproject.tasks.map((otask) =>
-                        otask.id === taskId
-                            ? {
-                                ...otask,
-                                ...(type === 'priority'
-                                    ? {
-                                        priority:
-                                            otask.priority === 'high'
-                                                ? 'low'
-                                                : otask.priority === 'low'
-                                                ? 'medium'
-                                                : 'high',
-                                    }
-                                    : {
-                                        status:
-                                            otask.status === 'todo'
-                                                ? 'in-progress'
-                                                : otask.status === 'in-progress'
-                                                ? 'done'
-                                                : otask.status,
-                                    }),
-                            }
-                            : otask
-                    ),
-                }
-                : oproject
-        )
-    );
-};
+    const updatePriorityStatus = (projectId, taskId, type) => {
+        setprojects((prevProjects) =>
+            ChangeValue(prevProjects, projectId, taskId, type)
+        );
+    };
 
 
     return(
@@ -83,7 +53,7 @@ export default function ProjectCard({project}){
                                 :'bg-green-500'
                             }`}
                             disabled={task.status==='done'}
-                            onClick={()=>changeValue(project.id,task.id,'priority')} >
+                            onClick={()=>updatePriorityStatus(project.id,task.id,'priority')} >
                                 {/* <Emoji type={task.priority}/> */}
                                 {task.priority}
                             </button>
@@ -94,7 +64,7 @@ export default function ProjectCard({project}){
                             <div className="ml-auto flex gap-3 items-center">
                                 <p>{formatted}</p>
                                 <button 
-                                onClick={()=>changeValue(project.id,task.id,'status')}
+                                onClick={()=>updatePriorityStatus(project.id,task.id,'status')}
                                 disabled={task.status==='done'} 
                                 className={`border border-gray-300 w-10 bg-gray-200 py-[1px] rounded-xs ${task.status === 'done' ? 'text-gray-300 cursor-not-allowed' : 'cursor-pointer'}`}>{task.status==='todo'?'Start':'Done'}
                                 </button>

@@ -20,6 +20,12 @@ export default function SideBar() {
             <Emoji type={type} /> {type.charAt(0).toUpperCase() + type.slice(1)}
           </NavLink>
         ))}
+        Projects:
+         {
+          projects.map(project=>(
+            <NavLink  className={linkClass} to={`/project/${project.id}`}>{project.name.slice(0,12)}</NavLink>
+          ))
+         }
     </aside>
   );
 }
