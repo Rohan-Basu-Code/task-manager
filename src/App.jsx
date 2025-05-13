@@ -123,8 +123,8 @@ function App() {
             </div>
             {/* Project Name */}
             <div className='bg-stone-300 rounded-lg p-1'>
-              <p className=' font-semibold px-2 pb-1'>Name:</p>
-              <input className='outline-none w-full rounded-md p-2 bg-white' type="text" value={projectName} onChange={(e)=>setprojectName(e.target.value)} />
+              <p className=' font-semibold px-2 pb-1'>Name:(Max length 30)</p>
+              <input maxLength={30} className='outline-none w-full rounded-md p-2 bg-white' type="text" value={projectName} onChange={(e)=>setprojectName(e.target.value)} />
             </div>
             {/* Project desc */}
             <div className='bg-stone-300 rounded-lg p-1 pb-0'>
