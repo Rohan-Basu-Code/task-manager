@@ -14,7 +14,6 @@ export default function Project() {
   const [description, setDescription] = useState("");
   const textareaRef = useRef(null);
 
-  // Initialize description when project is available
   useEffect(() => {
     if (project) {
       setDescription(project.description || "");
@@ -31,7 +30,6 @@ export default function Project() {
 
   const ToggleDscEdit = () => {
     if (!disableEditDsc && project) {
-      // Save updated description to context
       const updatedProjects = projects.map(p =>
         p.id === projectID ? { ...p, description } : p
       );
