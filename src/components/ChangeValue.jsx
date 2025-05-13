@@ -22,7 +22,7 @@ export default function changeTaskValue(projects, projectId, taskId, type) {
                                         ? 'in-progress'
                                         : otask.status === 'in-progress'
                                         ? 'done'
-                                        : otask.status,
+                                        : 'todo',
                                       }
                                     ),
                             }

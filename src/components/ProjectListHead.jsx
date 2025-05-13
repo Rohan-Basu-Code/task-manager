@@ -27,7 +27,7 @@ export default function ProjectListHead({category = 'all'}){
         <div className="h-[60px] pl-3 flex gap-2 items-center ">
             
                 <p className="text-4xl font-semibold capitalize"> 
-                     <Link className='duration:100 hover:underline' to="/projects/all">Projects</Link> / <span className="capitalize">{category}</span>
+                     <Link className='duration:100 hover:underline' to="/projects/all">Projects /</Link> <span className="capitalize">{category}</span>
                      
                         
                 </p>
